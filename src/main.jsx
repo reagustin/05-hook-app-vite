@@ -1,11 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { SimpleForm } from './02-useEffect/SimpleForm'
+
+import { MultipleCustomHooks } from './03-MultipleCustomHooks.jsx/MultipleCustomHooks'
+
 
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
-    <SimpleForm /> 
+    <MultipleCustomHooks /> 
   // </React.StrictMode>
 )
