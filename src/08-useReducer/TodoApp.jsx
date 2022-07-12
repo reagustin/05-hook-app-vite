@@ -1,4 +1,6 @@
 import { useReducer } from "react";
+import { TodoAdd } from "./TodoAdd";
+import { TodoList } from "./TodoList";
 import { todoReducer } from "./todoReducer";
 
 const initialState = [
@@ -9,7 +11,7 @@ const initialState = [
     },
     {
         id: new Date().getTime() * 3,
-        description: 'compras verduras',
+        description: 'compras carne',
         done: false,
     },
 ]
@@ -17,17 +19,33 @@ const initialState = [
     export const TodoApp = () => {
 
         const [todos, dispatchTodo] = useReducer(todoReducer, initialState )
+
+        const handleNewTodo = (todo) => {
+            console.log({todo});
+        }
+
+
       return (
         <>
-            <h1>TodoApp</h1>
+            <h1>TodoApp: 10, <small>pendientes: 2</small> </h1>
             <hr/>
 
-            <ul>
-                <li>Item 1</li>
-                <li>Item 2</li>
-                <li>Item 3</li>
-                
-            </ul>
+            <div className="row">
+                <div className="col-7">
+                    <TodoList todos={todos}/>
+
+                </div>
+            
+                <div className="col-5">
+                    <h4>Agregar TODO</h4>
+                    <hr/>
+
+                    <TodoAdd handleNewTodo={handleNewTodo}/>
+                </div>
+            
+            </div>
+
+
         </>
       )
     }
