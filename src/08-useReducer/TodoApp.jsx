@@ -1,27 +1,38 @@
-import { useReducer } from "react";
+import { useEffect, useReducer} from "react";
 import { TodoAdd } from "./TodoAdd";
 import { TodoList } from "./TodoList";
 import { todoReducer } from "./todoReducer";
 
 const initialState = [
-    {
+    /* {
         id: new Date().getTime(),
         description: 'compras verduras',
         done: false,
-    },
-    {
-        id: new Date().getTime() * 3,
-        description: 'compras carne',
-        done: false,
-    },
+    }, */
+    
 ]
+
+const init = ()=>{
+    return JSON.parse(localStorage.getItem('todos')) || [] ;
+}
     
     export const TodoApp = () => {
 
-        const [todos, dispatchTodo] = useReducer(todoReducer, initialState )
+        const [todos, dispatch] = useReducer(todoReducer, initialState, init )
+
+        useEffect(() => {
+          localStorage.setItem('todos', JSON.stringify(todos)); 
+          
+        }, [todos])
+        
 
         const handleNewTodo = (todo) => {
-            console.log({todo});
+            const action = {
+                type: '[TODO] Add Todo',
+                payload: todo,
+            }
+
+            dispatch(action);
         }
 
 
@@ -40,7 +51,7 @@ const initialState = [
                     <h4>Agregar TODO</h4>
                     <hr/>
 
-                    <TodoAdd handleNewTodo={handleNewTodo}/>
+                    <TodoAdd onNewTodo={handleNewTodo}/>
                 </div>
             
             </div>

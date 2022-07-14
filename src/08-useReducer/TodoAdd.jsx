@@ -1,38 +1,43 @@
 import React from 'react'
-import { useState } from 'react';
+import { useForm } from '../hooks/useForm';
 
-export const TodoAdd = ({handleNewTodo}) => {
+export const TodoAdd = ({onNewTodo}) => {
 
-    const [inputValue, setInputValue] = useState({id: '', description: '', done: false});
+    const { description, onInputChange, onResetForm} = useForm({
+        description: '',
+    });
 
-    const onInputChange = ({target}) => {        
-        setInputValue({id:new Date().getTime(), description: target.value, done: false});        
-    }
-
-    const onSubmit = (event) => {
+    const onFormSubmit = (event) => {
         event.preventDefault();
-        handleNewTodo(inputValue)
-        // console.log(inputValue);
+        if (description.length <= 1) return;
+
+        const newTodo = {
+            id: new Date().getTime(),
+            done: false,
+            description,
+        }
+
+        onNewTodo(newTodo);
+        onResetForm();
     }
  
-  return (
-    <>
-        <form onSubmit={  onSubmit }>
-            <input
-                type="text"
-                placeholder="¿Que hay que hacer?"
-                className="form-control"
-                value={inputValue.description}
-                onChange={onInputChange}
-            />
+  return (    
+    <form onSubmit={onFormSubmit}>
+        <input
+            type="text"
+            placeholder="¿Que hay que hacer?"
+            className="form-control"
+            name="description"
+            value={description}
+            onChange={onInputChange}
+        />
 
-            <button 
-                type="submit"
-                className="btn btn-outline-primary mt-1"
-            >
-                Agregar
-            </button>
-        </form>
-    </>
+        <button 
+            type="submit"
+            className="btn btn-outline-primary mt-1"
+        >
+            Agregar
+        </button>
+    </form>    
   )
 }
