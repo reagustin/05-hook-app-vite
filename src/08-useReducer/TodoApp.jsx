@@ -35,6 +35,19 @@ const init = ()=>{
             dispatch(action);
         }
 
+        const handleDeleteTodo = (id) => {
+            dispatch({
+                type: '[TODO] Remove Todo',
+                payload: id
+            })            
+        }
+
+        const handleToggleTodo = (id) => {
+            dispatch({
+                type: '[TODO] Toggle Todo',
+                payload: id
+            })       
+        }
 
       return (
         <>
@@ -43,7 +56,11 @@ const init = ()=>{
 
             <div className="row">
                 <div className="col-7">
-                    <TodoList todos={todos}/>
+                    <TodoList 
+                        todos={todos} 
+                        onDeleteTodo={ handleDeleteTodo } 
+                        onToggleTodo={ handleToggleTodo }
+                    />
 
                 </div>
             
