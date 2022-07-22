@@ -13,7 +13,11 @@ describe('pruebas en el multiple custom hooks', () => {
         counter: 1,
         increment: mockIncrement
     });
-    
+
+    beforeEach(()=>{
+        jest.clearAllMocks();
+    })
+
     test('debe de mostrar el componente por defecto', () => { 
         
         useFetch.mockReturnValue({
