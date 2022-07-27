@@ -23,6 +23,7 @@ export const NavBar = () => {
             <NavLink
               className={ ({isActive}) => `nav-link ${ isActive ? 'active' : '' }`}
               to="/login"
+              aria-label='anchorlogactive'
             >
               Login
             </NavLink>
